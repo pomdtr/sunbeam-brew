@@ -1,0 +1,29 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/pomdtr/sunbeam/main/schemas/schema.json
+name: brew
+title: Brew
+version: "1.0"
+entrypoints:
+  - type: push-page
+    page: search
+    title: Search
+pages:
+  search:
+    mode: filter
+    command: |
+      brew formulae | sunbeam jq -R '{
+        title: .,
+        accessories: ["Formulae"],
+        previewCmd: "brew info \(.)",
+        actions: [
+          {type: "exec-command", command: "brew install \(.)", title: "Install"}
+        ]
+      }' &
+      brew casks | sunbeam jq -R '{
+        title: .,
+        accessories: ["Cask"],
+        previewCmd: "brew info \(.)",
+        actions: [
+          {type: "exec-command", command: "brew install \(.)", title: "Install"}
+        ]
+      }' &
+      wait
