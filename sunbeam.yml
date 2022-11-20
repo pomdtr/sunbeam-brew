@@ -25,4 +25,8 @@ scripts:
         ]
       }' &
       wait
-    onSuccess: copy-to-clipboard
+    onSuccess: push-page
+    page:
+      type: list
+      mode: filter
+      showPreview: true
