@@ -2,15 +2,13 @@
 name: brew
 title: Brew
 version: "1.0"
-entrypoints:
-  - type: push-page
-    page: search
-    title: Search
-pages:
+rootItems:
+  - script: search
+    title: Search Packages
+scripts:
   search:
-    mode: filter
     command: |
-      brew formulae | sunbeam jq -R '{
+      brew formulae | sunbeam query -R '{
         title: .,
         accessories: ["Formulae"],
         previewCmd: "brew info \(.)",
@@ -18,7 +16,7 @@ pages:
           {type: "exec-command", command: "brew install \(.)", title: "Install"}
         ]
       }' &
-      brew casks | sunbeam jq -R '{
+      brew casks | sunbeam query -R '{
         title: .,
         accessories: ["Cask"],
         previewCmd: "brew info \(.)",
@@ -27,3 +25,4 @@ pages:
         ]
       }' &
       wait
+    onSuccess: copy-to-clipboard
