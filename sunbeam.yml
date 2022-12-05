@@ -1,6 +1,9 @@
 name: brew
 title: Brew
 version: "1.0"
+requirements:
+  - which: brew
+    homePage: https://brew.sh/
 rootItems:
   - script: search
     title: Search Packages
