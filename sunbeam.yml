@@ -6,6 +6,8 @@ rootItems:
     title: Search Packages
 scripts:
   search:
+    mode: filter
+    showPreview: true
     command: |
       brew formulae | sunbeam query -R '{
         title: .,
@@ -24,8 +26,3 @@ scripts:
         ]
       }' &
       wait
-    output: page
-    page:
-      type: list
-      mode: filter
-      showPreview: true
