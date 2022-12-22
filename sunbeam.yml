@@ -17,7 +17,7 @@ scripts:
         accessories: ["Formulae"],
         previewCmd: "brew info \(.)",
         actions: [
-          {type: "execCommand", command: "brew install \(.)", title: "Install"}
+          {type: "exec-command", command: "brew install \(.)", title: "Install"}
         ]
       }' &
       brew casks | sunbeam query -R '{
@@ -25,7 +25,7 @@ scripts:
         accessories: ["Cask"],
         previewCmd: "brew info \(.)",
         actions: [
-          {type: "execCommand", command: "brew install \(.)", title: "Install"}
+          {type: "exec-command", command: "brew install \(.)", title: "Install"}
         ]
       }' &
       wait
