@@ -4,27 +4,20 @@ requirements:
   - which: brew
     homePage: https://brew.sh/
 rootItems:
-  - script: search
-    title: Search Packages
-scripts:
-  search:
-    mode: filter
-    showPreview: true
-    command: |
-      brew formulae | sunbeam query -R '{
-        title: .,
-        accessories: ["Formulae"],
-        previewCmd: "brew info \(.)",
-        actions: [
-          {type: "exec-command", command: "brew install \(.)", title: "Install"}
-        ]
-      }' &
-      brew casks | sunbeam query -R '{
-        title: .,
-        accessories: ["Cask"],
-        previewCmd: "brew info \(.)",
-        actions: [
-          {type: "exec-command", command: "brew install \(.)", title: "Install"}
-        ]
-      }' &
-      wait
+  - command: search-formulae
+    title: Search Formulae
+commands:
+  show-info:
+    exec: brew info ${{ formula }}
+    params:
+      - name: formula
+        type: string
+  install-formula:
+    exec: brew install ${{ formula }}
+    params:
+      - name: formula
+        type: string
+  search-formulae:
+    onSuccess: push-page
+    exec: |
+      ./search-formulae.sh
