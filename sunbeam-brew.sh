@@ -5,12 +5,14 @@ set -euo pipefail
 brew formulae | sunbeam query -R '{
     title: .,
     accessories: ["Formulae"],
-    preview: {command: "show-info", with: {formula: .}},
+    detail: {
+      command: "brew info \(.)",
+    },
     actions: [
-      {type: "run-command", title: "Install formulae", command: "install-formula", with: {formula: .}}
+      {type: "run", title: "Install formulae", command: "brew install \(.)"}
     ]
   }' | sunbeam query --slurp '{
     type: "list",
-    showPreview: true,
+    showDetail: true,
     items: .
 }'
